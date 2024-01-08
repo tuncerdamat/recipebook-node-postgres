@@ -76,6 +76,24 @@ app.post('/edit', (req, res) => {
     })
 });
 
+app.delete('/delete/:id', (req, res) => {
+    pool.connect(function (err, client, done) {
+        if (err) {
+            console.log("Can not connect to the DB" + err);
+        }
+
+        client.query(
+            'DELETE FROM recipes WHERE id=$1',
+            [
+                req.params.id
+            ]
+        );
+
+        done();
+        res.send(200);
+    })
+});
+
 //Server
 app.listen(3000, () => {
     console.log("Server started on Port 3000");
