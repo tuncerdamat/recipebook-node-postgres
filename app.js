@@ -6,7 +6,14 @@ let dust = require('dustjs-helpers');
 let pg = require('pg');
 let app = express();
 
-let connectionString = "postgres://recipe_app:secret@localhost/recipe_book_db";
+const config = {
+    user: 'recipe_app',
+    database: 'recipe_book_db',
+    password: 'secret',
+    port: 5432                  // Default port
+};
+
+let pool = new pg.Pool(config);
 
 // Assign Dust engine to .dust files
 app.engine('dust', cons.dust);
@@ -21,9 +28,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-    res.render('index');
-})
+app.get('/', (req, res, next) => {
+    pool.connect(function (err, client, done) {
+        if (err) {
+            console.log("Can not connect to the DB" + err);
+        }
+        client.query('SELECT * FROM recipes', function (err, result) {
+            done();
+            if (err) {
+                console.log(err);
+                res.status(400).send(err);
+            }
+            res.render('index', {recipes: result.rows})
+        })
+    })
+});
 
 //Server
 app.listen(3000, () => {
