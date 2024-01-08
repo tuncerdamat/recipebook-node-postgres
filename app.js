@@ -56,6 +56,26 @@ app.post('/add', (req, res) => {
     })
 });
 
+app.post('/edit', (req, res) => {
+    pool.connect(function (err, client, done) {
+        if (err) {
+            console.log("Can not connect to the DB" + err);
+        }
+        client.query(
+            'UPDATE recipes SET name=$1, ingredients=$2, directions=$3 WHERE id=$4',
+            [
+                req.body.name,
+                req.body.ingredients,
+                req.body.directions,
+                req.body.id
+            ]
+        );
+
+        done();
+        res.redirect('/');
+    })
+});
+
 //Server
 app.listen(3000, () => {
     console.log("Server started on Port 3000");

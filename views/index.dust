@@ -30,7 +30,14 @@
                     <p><strong>Ingredients: </strong>{ingredients}</p>
                     <p><strong>Directions: </strong>{directions}</p>
                     <br />
-                    <button class="btn btn-default edit-recipe">
+                    <button class="btn btn-default edit-recipe"
+                        data-toggle="modal" 
+                        data-target="#editFormModal"
+                        data-id="{id}"
+                        data-name="{name}"
+                        data-ingredients="{ingredients}"
+                        data-directions="{directions}"
+                    >
                         <i class="bi bi-pencil-square" style="font-size: 1rem; color: cornflowerblue;"></i>
                     </button>
                     <button class="btn btn-default delete-recipe">
@@ -74,4 +81,40 @@
         </div>
       </div>
     </div>
+    
+    
+    <!-- Edit Form Modal -->
+        <div class="modal fade" id="editFormModal" tabindex="-1" aria-labelledby="editFormModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="/edit">
+                    <input type="hidden" id="edit-form-id" name="id" />
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Recipe</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="bi bi-x-square-fill" style="font-size: 1rem; color: red;"></i>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                           <div class="form-group">
+                               <label>Recipe Name</label>
+                               <input id="edit-form-name" type="text" class="form-control" name="name" />
+                           </div>
+                           <div class="form-group">
+                               <label>Ingredients</label>
+                               <textarea id="edit-form-ingredients" class="form-control" name="ingredients"></textarea>
+                           </div>
+                           <div class="form-group">
+                               <label>Directions</label>
+                               <textarea id="edit-form-directions" class="form-control" name="directions"></textarea>
+                           </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-close" data-bs-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                      </div>
+                 </form>
+            </div>
+          </div>
+        </div>
 {/body}
