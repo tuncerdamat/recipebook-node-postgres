@@ -2,3 +2,7 @@ body {
     margin-top: 10px;
     background: #f9f9f9;
 }
+
+.card {
+    width: 25rem;
+}
