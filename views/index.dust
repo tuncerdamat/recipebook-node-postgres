@@ -1,6 +1,14 @@
 {>"layout" /}
 
 {+body}
+     <button 
+        type="button"
+        class="btn btn-primary btn-block" 
+        data-toggle="modal" 
+        data-target="#formModal"
+     >
+        Add Recipe
+     </button>
     {#recipes}
         <div class="card">
             <div class="card-body">
@@ -20,7 +28,7 @@
                     <br/>
                     <br/>
                     <p><strong>Ingredients: </strong>{ingredients}</p>
-                    <p><strong>Ingredients: </strong>{directions}</p>
+                    <p><strong>Directions: </strong>{directions}</p>
                     <br />
                     <button class="btn btn-default edit-recipe">
                         <i class="bi bi-pencil-square" style="font-size: 1rem; color: cornflowerblue;"></i>
@@ -32,4 +40,38 @@
             </div>
         </div>
     {/recipes}
+    
+    <!-- Add Form Modal -->
+    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/add">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Recipe</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-square-fill" style="font-size: 1rem; color: red;"></i>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                       <div class="form-group">
+                           <label>Recipe Name</label>
+                           <input type="text" class="form-control" name="name" />
+                       </div>
+                       <div class="form-group">
+                           <label>Ingredients</label>
+                           <textarea class="form-control" name="ingredients"></textarea>
+                       </div>
+                       <div class="form-group">
+                           <label>Directions</label>
+                           <textarea class="form-control" name="directions"></textarea>
+                       </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Save" />
+                  </div>
+             </form>
+        </div>
+      </div>
+    </div>
 {/body}
